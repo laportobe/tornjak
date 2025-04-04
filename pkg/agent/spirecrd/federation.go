@@ -16,26 +16,57 @@ var gvrFederation = schema.GroupVersionResource{
 	Resource: "clusterfederatedtrustdomains",
 }
 
-type CreateFederationRequest trustdomain.CreateFederationRequest
-type CreateFederationResponse trustdomain.CreateFederationResponse
+type CreateFederationRequest trustdomain.CreateFederationRequest struct {
+	Name string
+	Spec FederationSpec
+}
+type CreateFederationResponse trustdomain.CreateFederationResponse struct {
+	status string
+}
 
-func (s *SPIRECRDManager) CreateFederationTrustDomains (inp CreateFederationRequest) (CreateFederationResponse) {
+func (m *SPIRECRDManager) CreateFederationTrustDomains (inp CreateFederationRequest) (CreateFederationResponse) {
+	// Define CRD object
+	federationCRD := &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "example.com/v1",
+			"kind":       "FederationTrustDomain",
+			"metadata": map[string]interface{}{
+				"name": req.Name,
+			},
+			"spec": req.Spec,
+		},
+	}
 
+	// Uses the dynamic client to create the CRD
 
+	gvr := schema.GroupVersionResource{
+		Group:    "example.com",
+		Version:  "v1",
+		Resource: "federationtrustdomains",
+	}
+	_, err := m.kubeClient.Resource(gvr).Namespace("default").Create(context.TODO(), federationCRD, metav1.CreateOptions{})
+	if err != nil {
+		return CreateFederationTrustDomainResponse{}, fmt.Errorf("error creating FederationTrustDomain CRD: %v", err)
+	}
+
+	return CreateFederationResponse{Status: "Created"}, nil
+}	// TODO Add other necessary fields
+	Name string
+	Spec FederationSpec
 }
 
 type UpdateFederationRequest trustdomain.UpdateFederationRequest
 type UpdateFederationResponse trustdomain.UpdateFederationResponse
 
-func (s *SPIRECRDManager) UpdateFederationTrustDomains (inp UpdateFederationRequest) (UpdateFederationResponse) {
+func (m *SPIRECRDManager) UpdateFederationTrustDomains (inp UpdateFederationRequest) (UpdateFederationResponse) {
 
-
+	
 }
 
 type DeleteFederationRequest trustdomain.DeleteFederationRequest
 type DeleteFederationResponse trustdomain.DeleteFederationResponse
 
-func (s *SPIRECRDManager) DeleteFederationTrustDomains (inp DeleteFederationRequest) (DeleteFederationResponse) {
+func (m *SPIRECRDManager) DeleteFederationTrustDomains (inp DeleteFederationRequest) (DeleteFederationResponse) {
 
 
 }
