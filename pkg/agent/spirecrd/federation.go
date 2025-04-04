@@ -28,7 +28,6 @@ func (m *SPIRECRDManager) CreateFederationTrustDomains (inp CreateFederationRequ
 	// Define CRD object
 	federationCRD := &unstructured.Unstructured{
 		Object: map[string]interface{}{
-			"apiVersion": "example.com/v1",
 			"kind":       "FederationTrustDomain",
 			"metadata": map[string]interface{}{
 				"name": req.Name,
@@ -60,7 +59,28 @@ type UpdateFederationResponse trustdomain.UpdateFederationResponse
 
 func (m *SPIRECRDManager) UpdateFederationTrustDomains (inp UpdateFederationRequest) (UpdateFederationResponse) {
 
-	
+	// Define the CRD object
+	federationCRD := &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"kind":       "FederationTrustDomain",
+			"metadata": map[string]interface{}{
+				"name": req.Name,
+			},
+			"spec": req.Spec,
+		},
+	}
+
+	// Use the dynamic client to update the CRD
+	gvr := schema.GroupVersionResource{
+		Version:  "v1",
+		Resource: "federationtrustdomains",
+	}
+	_, err := m.kubeClient.Resource(gvr).Namespace("default").Update(context.TODO(), federationCRD, metav1.UpdateOptions{})
+	if err != nil {
+		return UpdateFederationTrustDomainResponse{}, fmt.Errorf("error updating FederationTrustDomain CRD: %v", err)
+	}
+
+	return UpdateFederationTrustDomainResponse{Status: "Updated"}, nil
 }
 
 type DeleteFederationRequest trustdomain.DeleteFederationRequest
