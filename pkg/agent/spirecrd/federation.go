@@ -16,6 +16,30 @@ var gvrFederation = schema.GroupVersionResource{
 	Resource: "clusterfederatedtrustdomains",
 }
 
+type CreateFederationRequest trustdomain.CreateFederationRequest
+type CreateFederationResponse trustdomain.CreateFederationResponse
+
+func (s *SPIRECRDManager) CreateFederationTrustDomains (inp CreateFederationRequest) (CreateFederationResponse) {
+
+
+}
+
+type UpdateFederationRequest trustdomain.UpdateFederationRequest
+type UpdateFederationResponse trustdomain.UpdateFederationResponse
+
+func (s *SPIRECRDManager) UpdateFederationTrustDomains (inp UpdateFederationRequest) (UpdateFederationResponse) {
+
+
+}
+
+type DeleteFederationRequest trustdomain.DeleteFederationRequest
+type DeleteFederationResponse trustdomain.DeleteFederationResponse
+
+func (s *SPIRECRDManager) DeleteFederationTrustDomains (inp DeleteFederationRequest) (DeleteFederationResponse) {
+
+
+}
+
 type ListFederationRelationshipsRequest trustdomain.ListFederationRelationshipsRequest
 type ListFederationRelationshipsResponse trustdomain.ListFederationRelationshipsResponse
 
