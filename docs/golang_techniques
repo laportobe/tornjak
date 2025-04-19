@@ -57,7 +57,7 @@ func Hello(name string) string {
 }
 ```
 
-### Run the Tests
+### Run the Tests (Bash)
 
 ```bash
 go test
@@ -75,7 +75,7 @@ func main() {
 }
 ```
 
-## Go Basics
+## Basics
 
 ### Variables
 
@@ -152,13 +152,13 @@ fmt.Println(msg)
 
 ## Package Management
 
-Go uses modules to manage dependencies:
+Go uses modules to manage dependencies. A go.mod file keeps track of dependencies and can be created like so:
 
 ```bash
 go mod init mymodule
 ```
 
-Use `go get` to add new dependencies:
+Use `go get` to add and manage dependencies:
 
 ```bash
 go get github.com/some/module
@@ -173,5 +173,5 @@ go get github.com/some/module
 
 ## Conclusion
 
-Go is a powerful language for building fast and reliable software. By practicing TDD with Go's built-in testing tools, you develop better-structured and more reliable code. Check out *Learn Go with Tests* to dive deeper into TDD principles and idiomatic Go programming.
+Go is a powerful language for building fast and reliable software. By practicing TDD with Go's built-in testing tools, you will inevitably develop better-structured and more reliable code.
 
