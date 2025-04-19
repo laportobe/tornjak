@@ -1,0 +1,177 @@
+# Introduction to Go (Golang)
+
+## Overview
+
+Go, also known as Golang, is an open-source programming language developed by Google designed for simplicity, efficiency, and reliability. This documentation will use a Test Driven Development (TDD) approach to teaching the basics. For further information, refer to: 
+
+https\://quii.gitbook.io/learn-go-with-tests
+
+## Key Features
+
+- **Statically typed and compiled**: Go programs are compiled to machine code, offering fast execution.
+- **Simplicity**: Minimalist syntax makes the language easy to read and write.
+- **Concurrency**: Built-in support for concurrent programming via goroutines and channels.
+- **Garbage-collected**: Automatic memory management.
+- **Standard Library**: Rich standard library with built-in support for networking, web servers, and more.
+
+## Setting Up Go
+
+1. Download and install Go from [https://golang.org/dl/](https://golang.org/dl/).
+2. Set up your workspace:
+   - Use Go Modules for dependency management (`go mod init`).
+   - Organize your code by packages.
+   - Ensure `$GOPATH/bin` is in your system's PATH (if needed).
+
+## Test-Driven Development (TDD)
+
+A great way to learn Go is to write tests first. Here's how a simple test and implementation flow looks like:
+
+### Write a Test
+
+Create a file `hello_test.go`:
+
+```go
+package main
+
+import "testing"
+
+func TestHello(t *testing.T) {
+    got := Hello("Chris")
+    want := "Hello, Chris"
+
+    if got != want {
+        t.Errorf("got '%s' want '%s'", got, want)
+    }
+}
+```
+
+### Implement the Code
+
+In `hello.go`:
+
+```go
+package main
+
+func Hello(name string) string {
+    return "Hello, " + name
+}
+```
+
+### Run the Tests
+
+```bash
+go test
+```
+
+## Hello World Example
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println(Hello("World"))
+}
+```
+
+## Go Basics
+
+### Variables
+
+```go
+var name string = "Alice"
+age := 30 // Short variable declaration
+```
+
+### Functions
+
+```go
+func add(a int, b int) int {
+    return a + b
+}
+```
+
+### Control Structures
+
+```go
+if age > 18 {
+    fmt.Println("Adult")
+} else {
+    fmt.Println("Minor")
+}
+
+for i := 0; i < 5; i++ {
+    fmt.Println(i)
+}
+```
+
+### Arrays and Slices
+
+```go
+arr := [3]int{1, 2, 3}
+slice := []int{4, 5, 6}
+```
+
+### Maps
+
+```go
+m := map[string]int{"Alice": 25, "Bob": 30}
+fmt.Println(m["Alice"])
+```
+
+## Concurrency with Goroutines
+
+```go
+func say(msg string) {
+    fmt.Println(msg)
+}
+
+go say("Hello")
+go say("World")
+```
+
+To synchronize goroutines:
+
+```go
+ch := make(chan string)
+
+go func() {
+    ch <- "Hello from goroutine"
+}()
+
+msg := <-ch
+fmt.Println(msg)
+```
+
+## Building and Running Code
+
+- Build: `go build filename.go`
+- Run: `go run filename.go`
+- Install: `go install`
+
+## Package Management
+
+Go uses modules to manage dependencies:
+
+```bash
+go mod init mymodule
+```
+
+Use `go get` to add new dependencies:
+
+```bash
+go get github.com/some/module
+```
+
+## Useful Tools
+
+- `gofmt`: Automatically formats your Go code.
+- `go test`: Runs unit tests (central to TDD).
+- `go doc`: Displays documentation for packages.
+- `go vet`: Reports suspicious constructs.
+
+## Conclusion
+
+Go is a powerful language for building fast and reliable software. By practicing TDD with Go's built-in testing tools, you develop better-structured and more reliable code. Check out *Learn Go with Tests* to dive deeper into TDD principles and idiomatic Go programming.
+
